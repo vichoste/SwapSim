@@ -79,7 +79,6 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Adds a new process
 		/// </summary>
-		/// <param name="id">Process ID</param>
 		/// <param name="isSystemPriority">Sets if it's a system process</param>
 		public void AddProcess(bool isSystemPriority) {
 			var usedSize = 0;
@@ -87,10 +86,15 @@ namespace SwapSim.Components {
 				usedSize += proc.Size;
 			}
 			var newProcess = new Process(this.Id, isSystemPriority);
-			if (newProcess.Size + usedSize < memory.Size) {
-				this.memory.CurrentRunningProcesses.Enqueue(new Process(this.Id, isSystemPriority));
-				this.Id++;
+			if (newProcess.Size + usedSize <= memory.Size) {
+				this.memory.CurrentRunningProcesses.Enqueue(new Process(this.Id++, isSystemPriority));
 			}
+		}
+		/// <summary>
+		/// Runs the current iteration in the computer
+		/// </summary>
+		public void Run() {
+
 		}
 	}
 }

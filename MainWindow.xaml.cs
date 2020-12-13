@@ -57,7 +57,6 @@ namespace SwapSim {
 		/// </summary>
 		/// <param name="sender">Object that sends the event</param>
 		/// <param name="e">Parameters of the event</param>
-		private void RunButton_Click(object sender, RoutedEventArgs e) {
-		}
+		private void RunButton_Click(object sender, RoutedEventArgs e) => this.Computer.Run();
 	}
 }

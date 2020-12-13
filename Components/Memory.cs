@@ -12,15 +12,22 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Stores the current running processes inside the memory
 		/// </summary>
-		public Queue<Process> CurrentRunningProcesses;
+		public Queue<Process> CurrentRunningProcesses {
+			get; set;
+		}
 		/// <summary>
 		/// Stores the moved processes due to priority
 		/// </summary>
-		public Queue<Process> PendingProcesses;
+		public Queue<Process> PendingProcesses {
+			get; set;
+		}
 		/// <summary>
 		/// Memory size. It will always have fixed size
 		/// </summary>
 		public readonly int Size = 1024;
+		/// <summary>
+		/// Creates a memory
+		/// </summary>
 		public Memory() {
 		}
 	}

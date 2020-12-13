@@ -16,7 +16,17 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// The current process of the CPU
 		/// </summary>
-		public Process CurrentProcess { get; set; }
+		private Process process;
+		/// <summary>
+		/// The current process of the CPU
+		/// </summary>
+		public Process CurrentProcess {
+			get => this.process;
+			set {
+				this.process = value;
+				this.IsProcessing = true;
+			}
+		}
 		/// <summary>
 		/// Creates a CPU
 		/// </summary>

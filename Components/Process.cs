@@ -19,13 +19,13 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Process id
 		/// </summary>
-		public byte Id {
+		public int Id {
 			get; private set;
 		}
 		/// <summary>
-		/// Size of the process
+		/// Size of the process. Totally random
 		/// </summary>
-		public byte Size {
+		public int Size {
 			get; private set;
 		}
 		/// <summary>
@@ -35,23 +35,23 @@ namespace SwapSim.Components {
 			get; private set;
 		}
 		/// <summary>
-		/// Life span of the process
+		/// Life span of the process. Totally random
 		/// </summary>
-		public byte Lifespan {
+		public int Lifespan {
 			get; private set;
 		}
 		/// <summary>
 		/// Creates a process
 		/// </summary>
 		/// <param name="id">Process ID</param>
-		/// <param name="size">Process size</param>
 		/// <param name="isSystemPriority">Tells if the process has a system priority</param>
 		/// <param name="lifeSpan">Lifespan in iterations</param>
-		public Process(byte id, byte size, bool isSystemPriority, byte lifeSpan) {
+		public Process(byte id, bool isSystemPriority) {
+			var random = new Random();
 			this.Id = id;
-			this.Size = size;
+			this.Size = random.Next(128, 512);
 			this.Priority = isSystemPriority ? Priority.System : Priority.User;
-			this.Lifespan = lifeSpan;
+			this.Lifespan = random.Next(1, 10);
 		}
 	}
 }

@@ -9,6 +9,6 @@ namespace SwapSim.Components {
 	/// Represents the computer
 	/// </summary>
 	public sealed class Computer {
-
+		
 	}
 }

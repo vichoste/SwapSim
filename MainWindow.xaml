@@ -15,7 +15,7 @@
 		FontFamily="{DynamicResource MaterialDesignFont}"
         Title="SwapSim" Height="720" Width="1280" MinHeight="720" MinWidth="1280" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ShowInTaskbar="False" WindowStyle="ThreeDBorderWindow" Icon="/swap.png">
 	<Window.DataContext>
-		<components:Computer/>
+		<components:Computer x:Name="Computer"/>
 	</Window.DataContext>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -66,7 +66,7 @@
 				</Grid.RowDefinitions>
 				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
 				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos</TextBlock>
-				<DataGrid Grid.Row="2" Margin="16,0,16,16" ItemsSource="{Binding CurrentRunningProcessesInMemory}" AutoGenerateColumns="False">
+				<DataGrid Grid.Row="2" Margin="16,0,16,16" ItemsSource="{Binding CurrentRunningProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -76,7 +76,7 @@
 				</DataGrid>
 				<Separator Grid.Row="3" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,0"></Separator>
 				<TextBlock Grid.Row="4" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos pendientes</TextBlock>
-				<DataGrid Grid.Row="5" Margin="16,0,16,16" ItemsSource="{Binding PendingProcessesInMemory}" AutoGenerateColumns="False">
+				<DataGrid Grid.Row="5" Margin="16,0,16,16" ItemsSource="{Binding PendingProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -115,14 +115,14 @@
 					</Grid.ColumnDefinitions>
 					<TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">ID</TextBlock>
 					<TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Tamaño [KB]</TextBlock>
-					<TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Proceso de sistema</TextBlock>
 					<TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Duración [iteraciones]</TextBlock>
-					<TextBox x:Name="IdInput" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Stretch"></TextBox>
-					<TextBox x:Name="SizeInput" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
-					<CheckBox x:Name="PriorityInput" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
-					<TextBox x:Name="LifespanInput" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
+					<TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Proceso de sistema</TextBlock>
+					<TextBox TabIndex="0" x:Name="IdInput" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Stretch"></TextBox>
+					<TextBox TabIndex="1" x:Name="SizeInput" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
+					<TextBox TabIndex="2" x:Name="LifespanInput" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
+					<CheckBox TabIndex="3" x:Name="PriorityInput" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
 				</Grid>
-				<Button Grid.Row="3" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}">Crear</Button>
+				<Button TabIndex="4" Grid.Row="3" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}" Click="AddNewProcessButton_Click">Crear</Button>
 				<Separator Grid.Row="4" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,16"></Separator>
 				<TextBlock Grid.Row="5" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Control de iteraciones</TextBlock>
 				<Grid Margin="16,0,16,16" Grid.Row="6">
@@ -133,8 +133,8 @@
 					<TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Iteración actual:</TextBlock>
 					<TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding Iteration}"></TextBlock>
 				</Grid>
-				<Button Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}">Ejecutar</Button>
-				<Button Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}">Reiniciar</Button>
+				<Button TabIndex="5" Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="RunButton_Click">Ejecutar</Button>
+				<Button TabIndex="6" Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="ResetButton_Click">Reiniciar</Button>
 			</Grid>
 		</materialDesign:Card>
 	</Grid>

@@ -23,6 +23,11 @@ namespace SwapSim.Components {
 		public Process CurrentProcess {
 			get => this.currentProcess;
 			set {
+				if (value == null) {
+					this.currentProcess = null;
+					this.IsProcessing = false;
+					return;
+				}
 				this.currentProcess = value;
 				this.IsProcessing = true;
 			}

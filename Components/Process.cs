@@ -51,7 +51,7 @@ namespace SwapSim.Components {
 		/// <param name="id">Process ID</param>
 		/// <param name="isSystemPriority">Tells if the process has a system priority</param>
 		/// <param name="lifeSpan">Lifespan in iterations</param>
-		public Process(byte id, bool isSystemPriority) {
+		public Process(int id, bool isSystemPriority) {
 			var random = new Random();
 			this.Id = id;
 			this.Size = random.Next(128, 512);

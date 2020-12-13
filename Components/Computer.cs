@@ -12,7 +12,7 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Holds the CPU
 		/// </summary>
-		private Cpu cpu;
+		private readonly Cpu cpu;
 		/// <summary>
 		/// Gets the current process inside the CPU
 		/// </summary>
@@ -30,7 +30,7 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Holds the memory
 		/// </summary>
-		private Memory memory;
+		private readonly Memory memory;
 		/// <summary>
 		/// Holds the current running processes inside the memory
 		/// </summary>
@@ -63,5 +63,20 @@ namespace SwapSim.Components {
 			this.cpu = new Cpu();
 			this.memory = new Memory();
 		}
+		/// <summary>
+		/// Resets the computer
+		/// </summary>
+		public void Reset() {
+			this.cpu.CurrentProcess = null;
+			this.memory.CurrentRunningProcesses.Clear();
+			this.memory.PendingProcesses.Clear();
+			this.Iteration = 0;
+		}
+		/// <summary>
+		/// Adds a new process
+		/// </summary>
+		/// <param name="id">Process ID</param>
+		/// <param name="isSystemPriority">Sets if it's a system process</param>
+		public void AddProcess(int id, bool isSystemPriority) => this.memory.CurrentRunningProcesses.Enqueue(new Process(id, isSystemPriority));
 	}
 }

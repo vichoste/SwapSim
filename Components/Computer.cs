@@ -53,6 +53,10 @@ namespace SwapSim.Components {
 			private set { }
 		}
 		/// <summary>
+		/// Tells the current iteration of the simulation
+		/// </summary>
+		public int Iteration { get; private set; }
+		/// <summary>
 		/// Creates a computer
 		/// </summary>
 		public Computer() {

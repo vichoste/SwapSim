@@ -17,12 +17,22 @@
 	<Window.DataContext>
 		<components:Computer/>
 	</Window.DataContext>
-	<DockPanel>
-		<materialDesign:Card DockPanel.Dock="Left" Margin="16">
-			<StackPanel>
-				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">CPU</TextBlock>
-				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextAlignment="Center">Proceso actual</TextBlock>
-				<Grid Margin="16">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1.5*"></ColumnDefinition>
+			<ColumnDefinition Width="1.8*"></ColumnDefinition>
+			<ColumnDefinition Width="2*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<materialDesign:Card Margin="16,16,8,16" MinWidth="300" Grid.Column="0">
+			<Grid VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1.5*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="5*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">CPU</TextBlock>
+				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Proceso actual</TextBlock>
+				<Grid Grid.Row="2" Margin="16,0,16,16" VerticalAlignment="Top">
 					<Grid.RowDefinitions>
 						<RowDefinition></RowDefinition>
 						<RowDefinition></RowDefinition>
@@ -33,21 +43,30 @@
 						<ColumnDefinition></ColumnDefinition>
 						<ColumnDefinition></ColumnDefinition>
 					</Grid.ColumnDefinitions>
-					<TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">ID</TextBlock>
-					<TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]</TextBlock>
-					<TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Prioridad</TextBlock>
-					<TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Duración [iteraciones]</TextBlock>
-					<TextBlock Margin="4" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Id}"></TextBlock>
-					<TextBlock Margin="4" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Size}"></TextBlock>
-					<TextBlock Margin="4" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Priority}"></TextBlock>
-					<TextBlock Margin="4" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Lifespan}"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">ID:</TextBlock>
+					<TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]:</TextBlock>
+					<TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Prioridad:</TextBlock>
+					<TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Duración [iteraciones]:</TextBlock>
+					<TextBlock Margin="4" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Id}" TextAlignment="Right"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Size}" TextAlignment="Right"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Priority}" TextAlignment="Right"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Lifespan}" TextAlignment="Right"></TextBlock>
 				</Grid>
-			</StackPanel>
+			</Grid>
 		</materialDesign:Card>
-		<materialDesign:Card DockPanel.Dock="Right" Margin="16">
-			<StackPanel>
-				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
-				<DataGrid Margin="16" ItemsSource="{Binding CurrentRunningProcessesInMemory}" AutoGenerateColumns="False">
+		<materialDesign:Card Margin="8,16,16,16" Grid.Column="2">
+			<Grid VerticalAlignment="Stretch">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1.5*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="5*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="5*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
+				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos</TextBlock>
+				<DataGrid Grid.Row="2" Margin="16,0,16,16" ItemsSource="{Binding CurrentRunningProcessesInMemory}" AutoGenerateColumns="False">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -55,38 +74,68 @@
 						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
-			</StackPanel>
+				<Separator Grid.Row="3" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,0"></Separator>
+				<TextBlock Grid.Row="4" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos pendientes</TextBlock>
+				<DataGrid Grid.Row="5" Margin="16,0,16,16" ItemsSource="{Binding PendingProcessesInMemory}" AutoGenerateColumns="False">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Prioridad" Binding="{Binding Priority}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
 		</materialDesign:Card>
-		<materialDesign:Card Margin="8,16,8,16">
-			<StackPanel>
-				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Panel de Control</TextBlock>
-				<materialDesign:Card Margin="16">
-					<StackPanel>
-						<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Creación de procesos</TextBlock>
-						<Grid Margin="16">
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition></ColumnDefinition>
-								<ColumnDefinition></ColumnDefinition>
-							</Grid.ColumnDefinitions>
-							<TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">ID</TextBlock>
-							<TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]</TextBlock>
-							<TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Proceso de sistema</TextBlock>
-							<TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Duración [iteraciones]</TextBlock>
-							<TextBox x:Name="IdInput" Margin="4" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
-							<TextBox x:Name="SizeInput" Margin="4" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
-							<CheckBox x:Name="PriorityInput" Margin="4" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
-							<TextBox x:Name="LifespanInput" Margin="4" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
-						</Grid>
-						<Button Margin="16" Style="{DynamicResource MaterialDesignFlatDarkBgButton}">Crear</Button>
-					</StackPanel>
-				</materialDesign:Card>
-			</StackPanel>
+		<materialDesign:Card Margin="8,16,8,16" Grid.Column="1">
+			<Grid VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1.5*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="5*"></RowDefinition>
+					<RowDefinition Height="2*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Panel de Control</TextBlock>
+				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Creación de procesos</TextBlock>
+				<Grid Grid.Row="2" Margin="16,0,16,16">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*"></RowDefinition>
+						<RowDefinition Height="1*"></RowDefinition>
+						<RowDefinition Height="1*"></RowDefinition>
+						<RowDefinition Height="1*"></RowDefinition>
+						<RowDefinition Height="1*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1.5*"></ColumnDefinition>
+						<ColumnDefinition Width="2*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">ID</TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Tamaño [KB]</TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Proceso de sistema</TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Duración [iteraciones]</TextBlock>
+					<TextBox x:Name="IdInput" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Stretch"></TextBox>
+					<TextBox x:Name="SizeInput" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
+					<CheckBox x:Name="PriorityInput" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
+					<TextBox x:Name="LifespanInput" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
+				</Grid>
+				<Button Grid.Row="3" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}">Crear</Button>
+				<Separator Grid.Row="4" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,16"></Separator>
+				<TextBlock Grid.Row="5" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Control de iteraciones</TextBlock>
+				<Grid Margin="16,0,16,16" Grid.Row="6">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Iteración actual:</TextBlock>
+					<TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding Iteration}"></TextBlock>
+				</Grid>
+				<Button Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}">Ejecutar</Button>
+				<Button Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}">Reiniciar</Button>
+			</Grid>
 		</materialDesign:Card>
-	</DockPanel>
+	</Grid>
 </Window>

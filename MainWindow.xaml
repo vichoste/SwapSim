@@ -105,24 +105,17 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1*"></RowDefinition>
 						<RowDefinition Height="1*"></RowDefinition>
-						<RowDefinition Height="1*"></RowDefinition>
-						<RowDefinition Height="1*"></RowDefinition>
-						<RowDefinition Height="1*"></RowDefinition>
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1.5*"></ColumnDefinition>
 						<ColumnDefinition Width="2*"></ColumnDefinition>
 					</Grid.ColumnDefinitions>
 					<TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">ID</TextBlock>
-					<TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Tamaño [KB]</TextBlock>
-					<TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Duración [iteraciones]</TextBlock>
-					<TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Proceso de sistema</TextBlock>
-					<TextBox TabIndex="0" x:Name="IdInput" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Stretch"></TextBox>
-					<TextBox TabIndex="1" x:Name="SizeInput" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
-					<TextBox TabIndex="2" x:Name="LifespanInput" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignOutlinedTextFieldTextBox}"></TextBox>
-					<CheckBox TabIndex="3" x:Name="PriorityInput" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
+					<TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Proceso de sistema</TextBlock>
+					<TextBlock x:Name="IdInput" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding Id}"></TextBlock>
+					<CheckBox TabIndex="0" x:Name="PriorityInput" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}" HorizontalAlignment="Right"></CheckBox>
 				</Grid>
-				<Button TabIndex="4" Grid.Row="3" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}" Click="AddNewProcessButton_Click">Crear</Button>
+				<Button TabIndex="1" Grid.Row="3" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignFloatingActionDarkButton}" Click="AddNewProcessButton_Click">Crear</Button>
 				<Separator Grid.Row="4" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,16"></Separator>
 				<TextBlock Grid.Row="5" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Control de iteraciones</TextBlock>
 				<Grid Margin="16,0,16,16" Grid.Row="6">
@@ -133,8 +126,8 @@
 					<TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center">Iteración actual:</TextBlock>
 					<TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding Iteration}"></TextBlock>
 				</Grid>
-				<Button TabIndex="5" Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="RunButton_Click">Ejecutar</Button>
-				<Button TabIndex="6" Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="ResetButton_Click">Reiniciar</Button>
+				<Button TabIndex="2" Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="RunButton_Click">Ejecutar</Button>
+				<Button TabIndex="3" Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="ResetButton_Click">Reiniciar</Button>
 			</Grid>
 		</materialDesign:Card>
 	</Grid>

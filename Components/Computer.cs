@@ -57,6 +57,10 @@ namespace SwapSim.Components {
 		/// </summary>
 		public int Iteration { get; private set; }
 		/// <summary>
+		/// Current ID process
+		/// </summary>
+		public int Id { get; private set; }
+		/// <summary>
 		/// Creates a computer
 		/// </summary>
 		public Computer() {
@@ -70,13 +74,23 @@ namespace SwapSim.Components {
 			this.cpu.CurrentProcess = null;
 			this.memory.CurrentRunningProcesses.Clear();
 			this.memory.PendingProcesses.Clear();
-			this.Iteration = 0;
+			this.Iteration = this.Id = 0;
 		}
 		/// <summary>
 		/// Adds a new process
 		/// </summary>
 		/// <param name="id">Process ID</param>
 		/// <param name="isSystemPriority">Sets if it's a system process</param>
-		public void AddProcess(int id, bool isSystemPriority) => this.memory.CurrentRunningProcesses.Enqueue(new Process(id, isSystemPriority));
+		public void AddProcess(bool isSystemPriority) {
+			var usedSize = 0;
+			foreach (var proc in this.memory.CurrentRunningProcesses) {
+				usedSize += proc.Size;
+			}
+			var newProcess = new Process(this.Id, isSystemPriority);
+			if (newProcess.Size + usedSize < memory.Size) {
+				this.memory.CurrentRunningProcesses.Enqueue(new Process(this.Id, isSystemPriority));
+				this.Id++;
+			}
+		}
 	}
 }

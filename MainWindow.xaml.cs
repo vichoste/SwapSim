@@ -38,14 +38,11 @@ namespace SwapSim {
 		/// <param name="e">Parameters of the event</param>
 		private void AddNewProcessButton_Click(object sender, RoutedEventArgs e) {
 			try {
-				this.Computer.AddProcess(int.Parse(this.IdInput.Text), this.PriorityInput.IsChecked.Value);
+				this.Computer.AddProcess(this.PriorityInput.IsChecked.Value);
 				this.Update();
 			} catch (Exception) {
 			} finally {
-				this.IdInput.Clear();
-				this.LifespanInput.Clear();
 				this.PriorityInput.IsChecked = false;
-				this.SizeInput.Clear();
 			}
 		}
 		/// <summary>

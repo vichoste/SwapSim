@@ -25,10 +25,19 @@ Proyecto 3</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="swap.png">
+    <None Remove="swap.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="1.2.7" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="swap.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>
+    </Resource>
   </ItemGroup>
 
 </Project>

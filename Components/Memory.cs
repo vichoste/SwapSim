@@ -8,18 +8,18 @@ namespace SwapSim.Components {
 	/// <summary>
 	/// Represents the memory
 	/// </summary>
-	sealed class Memory {
+	public sealed class Memory {
 		/// <summary>
 		/// Stores the current running processes inside the memory
 		/// </summary>
 		public Queue<Process> CurrentRunningProcesses {
-			get; set;
+			get; private set;
 		}
 		/// <summary>
 		/// Stores the moved processes due to priority
 		/// </summary>
 		public Queue<Process> PendingProcesses {
-			get; set;
+			get; private set;
 		}
 		/// <summary>
 		/// Memory size. It will always have fixed size
@@ -29,6 +29,8 @@ namespace SwapSim.Components {
 		/// Creates a memory
 		/// </summary>
 		public Memory() {
+			this.CurrentRunningProcesses = new Queue<Process>();
+			this.PendingProcesses = new Queue<Process>();
 		}
 	}
 }

@@ -3,10 +3,90 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SwapSim"
+		xmlns:components="clr-namespace:SwapSim.Components"
         mc:Ignorable="d"
-        Title="SwapSim" Height="720" Width="1280" MinHeight="720" MinWidth="1280" Icon="swap.png">
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		TextElement.FontWeight="Regular"
+		TextElement.FontSize="14"
+		TextOptions.TextFormattingMode="Ideal"
+		TextOptions.TextRenderingMode="Auto"
+		Background="{DynamicResource MaterialDesignDarkBackground}"
+		FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="SwapSim" Height="720" Width="1280" MinHeight="720" MinWidth="1280" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ShowInTaskbar="False" WindowStyle="ThreeDBorderWindow" Icon="/swap.png">
+	<Window.DataContext>
+		<components:Computer/>
+	</Window.DataContext>
 	<DockPanel>
-		<DataGrid DockPanel.Dock="Left"></DataGrid>
+		<materialDesign:Card DockPanel.Dock="Left" Margin="16">
+			<StackPanel>
+				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">CPU</TextBlock>
+				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignBody1TextBlock}" TextAlignment="Center">Proceso actual</TextBlock>
+				<Grid Margin="16">
+					<Grid.RowDefinitions>
+						<RowDefinition></RowDefinition>
+						<RowDefinition></RowDefinition>
+						<RowDefinition></RowDefinition>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">ID</TextBlock>
+					<TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]</TextBlock>
+					<TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Prioridad</TextBlock>
+					<TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Duración [iteraciones]</TextBlock>
+					<TextBlock Margin="4" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Id}"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Size}"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Priority}"></TextBlock>
+					<TextBlock Margin="4" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding CurrentProcessInCpu.Lifespan}"></TextBlock>
+				</Grid>
+			</StackPanel>
+		</materialDesign:Card>
+		<materialDesign:Card DockPanel.Dock="Right" Margin="16">
+			<StackPanel>
+				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
+				<DataGrid Margin="16" ItemsSource="{Binding CurrentRunningProcessesInMemory}" AutoGenerateColumns="False">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Prioridad" Binding="{Binding Priority}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
+		</materialDesign:Card>
+		<materialDesign:Card Margin="8,16,8,16">
+			<StackPanel>
+				<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Panel de Control</TextBlock>
+				<materialDesign:Card Margin="16">
+					<StackPanel>
+						<TextBlock Margin="16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Creación de procesos</TextBlock>
+						<Grid Margin="16">
+							<Grid.RowDefinitions>
+								<RowDefinition></RowDefinition>
+								<RowDefinition></RowDefinition>
+								<RowDefinition></RowDefinition>
+								<RowDefinition></RowDefinition>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition></ColumnDefinition>
+								<ColumnDefinition></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">ID</TextBlock>
+							<TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]</TextBlock>
+							<TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Proceso de sistema</TextBlock>
+							<TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Duración [iteraciones]</TextBlock>
+							<TextBox x:Name="IdInput" Margin="4" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
+							<TextBox x:Name="SizeInput" Margin="4" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
+							<CheckBox x:Name="PriorityInput" Margin="4" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignDarkCheckBox}"></CheckBox>
+							<TextBox x:Name="LifespanInput" Margin="4" Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
+						</Grid>
+						<Button Margin="16" Style="{DynamicResource MaterialDesignFlatDarkBgButton}">Crear</Button>
+					</StackPanel>
+				</materialDesign:Card>
+			</StackPanel>
+		</materialDesign:Card>
 	</DockPanel>
 </Window>

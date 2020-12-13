@@ -8,14 +8,14 @@ namespace SwapSim.Components {
 	/// <summary>
 	/// Represents the selected priority on a process
 	/// </summary>
-	enum Priority {
+	public enum PriorityEnum {
 		User,
 		System
 	}
 	/// <summary>
 	/// Represents the process
 	/// </summary>
-	sealed class Process {
+	public sealed class Process {
 		/// <summary>
 		/// Process id
 		/// </summary>
@@ -31,8 +31,13 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Priority of the process
 		/// </summary>
-		public Priority Priority {
-			get; private set;
+		private PriorityEnum priority;
+		/// <summary>
+		/// Priority of the process
+		/// </summary>
+		public String Priority {
+			get => this.priority == PriorityEnum.User ? "Usuario" : "Sistema";
+			private set { }
 		}
 		/// <summary>
 		/// Life span of the process. Totally random
@@ -50,7 +55,7 @@ namespace SwapSim.Components {
 			var random = new Random();
 			this.Id = id;
 			this.Size = random.Next(128, 512);
-			this.Priority = isSystemPriority ? Priority.System : Priority.User;
+			this.priority = isSystemPriority ? PriorityEnum.System : PriorityEnum.User;
 			this.Lifespan = random.Next(1, 10);
 		}
 	}

@@ -87,14 +87,41 @@ namespace SwapSim.Components {
 			}
 			var newProcess = new Process(this.Id, isSystemPriority);
 			if (newProcess.Size + usedSize <= memory.Size) {
-				this.memory.CurrentRunningProcesses.Enqueue(new Process(this.Id++, isSystemPriority));
+				this.memory.CurrentRunningProcesses.Add(new Process(this.Id++, isSystemPriority));
 			}
 		}
 		/// <summary>
 		/// Runs the current iteration in the computer
 		/// </summary>
 		public void Run() {
-
+			var systemProcessAmount = 0;
+			if (this.cpu.IsProcessing) {
+				var newLifespan = this.cpu.CurrentProcess.Lifespan - 1;
+				if (newLifespan > 0) {
+					this.cpu.CurrentProcess.Lifespan = newLifespan;
+				} else {
+					this.cpu.CurrentProcess = null;
+				}
+			}
+			var currentRunningProcessesInMemory = this.CurrentRunningProcessesInMemory;
+			if (currentRunningProcessesInMemory.Count > 0) {
+				foreach (var process in currentRunningProcessesInMemory) {
+					if (process.Priority.Equals("Sistema")) {
+						systemProcessAmount++;
+					}
+				}
+				if (systemProcessAmount > 0) {
+					var index = 0;
+					foreach (var process in currentRunningProcessesInMemory) {
+						if (process.Priority.Equals("Sistema")) {
+							if (this.cpu.IsProcessing && this.cpu.CurrentProcess.Priority.Equals("Usuario")) {
+								this.PendingProcessesInMemory.Add(this.cpu.CurrentProcess);
+								this.cpu.CurrentProcess = null;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

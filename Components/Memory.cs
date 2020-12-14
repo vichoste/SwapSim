@@ -12,13 +12,13 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Stores the current running processes inside the memory
 		/// </summary>
-		public Queue<Process> CurrentRunningProcesses {
+		public List<Process> CurrentRunningProcesses {
 			get; private set;
 		}
 		/// <summary>
 		/// Stores the moved processes due to priority
 		/// </summary>
-		public Queue<Process> PendingProcesses {
+		public List<Process> PendingProcesses {
 			get; private set;
 		}
 		/// <summary>
@@ -29,8 +29,8 @@ namespace SwapSim.Components {
 		/// Creates a memory
 		/// </summary>
 		public Memory() {
-			this.CurrentRunningProcesses = new Queue<Process>();
-			this.PendingProcesses = new Queue<Process>();
+			this.CurrentRunningProcesses = new List<Process>();
+			this.PendingProcesses = new List<Process>();
 		}
 	}
 }

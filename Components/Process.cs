@@ -43,7 +43,7 @@ namespace SwapSim.Components {
 		/// Life span of the process. Totally random
 		/// </summary>
 		public int Lifespan {
-			get; private set;
+			get; set;
 		}
 		/// <summary>
 		/// Creates a process

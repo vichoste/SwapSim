@@ -17,7 +17,7 @@ namespace SwapSim.Components {
 		/// Gets the current process inside the CPU
 		/// </summary>
 		public Process CurrentProcessInCpu {
-			get => this.cpu.currentProcesses.Count != 0 ? this.cpu[0] : null;
+			get => this.cpu.CurrentProcesses.Count != 0 ? this.cpu[0] : null;
 			private set { }
 		}
 		/// <summary>
@@ -114,15 +114,15 @@ namespace SwapSim.Components {
 						if (process.Priority.Equals("Sistema")) {
 							if (this.IsProcessingInCpu && this.cpu[index].Priority.Equals("Usuario")) {
 								this.memory.PendingProcesses.Add(this.cpu[0]);
-								this.cpu.currentProcesses.RemoveAt(0);
-								if (this.cpu.currentProcesses.Count == 0) {
-									this.cpu.currentProcesses.Add(process);
-									this.cpu.currentProcesses.RemoveAt(index);
+								this.cpu.CurrentProcesses.RemoveAt(0);
+								if (this.cpu.CurrentProcesses.Count == 0) {
+									this.cpu.CurrentProcesses.Add(process);
+									this.cpu.CurrentProcesses.RemoveAt(index);
 									break;
 								}
 							}
-							this.cpu.currentProcesses.Add(process);
-							this.cpu.currentProcesses.RemoveAt(index);
+							this.cpu.CurrentProcesses.Add(process);
+							this.cpu.CurrentProcesses.RemoveAt(index);
 							break;
 						}
 						index++;
@@ -130,16 +130,16 @@ namespace SwapSim.Components {
 				} else {
 					if (!this.IsProcessingInCpu) {
 						if (this.PendingProcessesInMemory.Count > 0) {
-							this.cpu.currentProcesses.Add(this.PendingProcessesInMemory[0]);
+							this.cpu.CurrentProcesses.Add(this.PendingProcessesInMemory[0]);
 							this.memory.PendingProcesses.RemoveAt(0);
 						} else {
-							this.cpu.currentProcesses.Add(this.CurrentRunningProcessesInMemory[0]);
-							this.cpu.currentProcesses.RemoveAt(0);
+							this.cpu.CurrentProcesses.Add(this.CurrentRunningProcessesInMemory[0]);
+							this.cpu.CurrentProcesses.RemoveAt(0);
 						}
 					}
 				}
 			} else if (!this.IsProcessingInCpu && this.PendingProcessesInMemory.Count > 0) {
-				this.cpu.currentProcesses.Add(this.PendingProcessesInMemory[0]);
+				this.cpu.CurrentProcesses.Add(this.PendingProcessesInMemory[0]);
 				this.memory.PendingProcesses.RemoveAt(0);
 			}
 			this.Iteration++;

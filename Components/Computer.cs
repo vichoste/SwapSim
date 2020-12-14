@@ -12,12 +12,12 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Holds the CPU
 		/// </summary>
-		private readonly Cpu cpu;
+		private Cpu cpu;
 		/// <summary>
 		/// Gets the current process inside the CPU
 		/// </summary>
 		public Process CurrentProcessInCpu {
-			get => this.cpu.CurrentProcess;
+			get => this.cpu.currentProcesses.Count != 0 ? this.cpu[0] : null;
 			private set { }
 		}
 		/// <summary>
@@ -30,7 +30,7 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Holds the memory
 		/// </summary>
-		private readonly Memory memory;
+		private Memory memory;
 		/// <summary>
 		/// Holds the current running processes inside the memory
 		/// </summary>
@@ -71,9 +71,8 @@ namespace SwapSim.Components {
 		/// Resets the computer
 		/// </summary>
 		public void Reset() {
-			this.cpu.CurrentProcess = null;
-			this.memory.CurrentRunningProcesses.Clear();
-			this.memory.PendingProcesses.Clear();
+			this.cpu = new Cpu();
+			this.memory = new Memory();
 			this.Iteration = this.Id = 0;
 		}
 		/// <summary>
@@ -95,33 +94,55 @@ namespace SwapSim.Components {
 		/// </summary>
 		public void Run() {
 			var systemProcessAmount = 0;
-			if (this.cpu.IsProcessing) {
-				var newLifespan = this.cpu.CurrentProcess.Lifespan - 1;
+			if (this.IsProcessingInCpu) {
+				var newLifespan = this.cpu[0].Lifespan - 1;
 				if (newLifespan > 0) {
-					this.cpu.CurrentProcess.Lifespan = newLifespan;
+					this.cpu[0].Lifespan = newLifespan;
 				} else {
-					this.cpu.CurrentProcess = null;
+					this.cpu[0] = null;
 				}
 			}
-			var currentRunningProcessesInMemory = this.CurrentRunningProcessesInMemory;
-			if (currentRunningProcessesInMemory.Count > 0) {
-				foreach (var process in currentRunningProcessesInMemory) {
+			if (this.CurrentRunningProcessesInMemory.Count > 0) {
+				foreach (var process in this.CurrentRunningProcessesInMemory) {
 					if (process.Priority.Equals("Sistema")) {
 						systemProcessAmount++;
 					}
 				}
 				if (systemProcessAmount > 0) {
 					var index = 0;
-					foreach (var process in currentRunningProcessesInMemory) {
+					foreach (var process in this.CurrentRunningProcessesInMemory) {
 						if (process.Priority.Equals("Sistema")) {
-							if (this.cpu.IsProcessing && this.cpu.CurrentProcess.Priority.Equals("Usuario")) {
-								this.PendingProcessesInMemory.Add(this.cpu.CurrentProcess);
-								this.cpu.CurrentProcess = null;
+							if (this.IsProcessingInCpu && this.cpu[index].Priority.Equals("Usuario")) {
+								this.memory.PendingProcesses.Add(this.cpu[0]);
+								this.cpu.currentProcesses.RemoveAt(0);
+								if (this.cpu.currentProcesses.Count == 0) {
+									this.cpu.currentProcesses.Add(process);
+									this.cpu.currentProcesses.RemoveAt(index);
+									break;
+								}
 							}
+							this.cpu.currentProcesses.Add(process);
+							this.cpu.currentProcesses.RemoveAt(index);
+							break;
+						}
+						index++;
+					}
+				} else {
+					if (!this.IsProcessingInCpu) {
+						if (this.PendingProcessesInMemory.Count > 0) {
+							this.cpu.currentProcesses.Add(this.PendingProcessesInMemory[0]);
+							this.memory.PendingProcesses.RemoveAt(0);
+						} else {
+							this.cpu.currentProcesses.Add(this.CurrentRunningProcessesInMemory[0]);
+							this.cpu.currentProcesses.RemoveAt(0);
 						}
 					}
 				}
+			} else if (!this.IsProcessingInCpu && this.PendingProcessesInMemory.Count > 0) {
+				this.cpu.currentProcesses.Add(this.PendingProcessesInMemory[0]);
+				this.memory.PendingProcesses.RemoveAt(0);
 			}
+			this.Iteration++;
 		}
 	}
 }

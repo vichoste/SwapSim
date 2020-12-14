@@ -14,28 +14,27 @@ namespace SwapSim.Components {
 		/// </summary>
 		public bool IsProcessing { get; set; }
 		/// <summary>
-		/// The current process of the CPU
+		/// The current processes of the CPU
 		/// </summary>
-		private Process currentProcess;
+		public List<Process> currentProcesses;
 		/// <summary>
-		/// The current process of the CPU
+		/// The current processes of the CPU
 		/// </summary>
-		public Process CurrentProcess {
-			get => this.currentProcess;
+		public Process this[int i] {
+			get => this.currentProcesses[i];
 			set {
 				if (value == null) {
-					this.currentProcess = null;
+					this.currentProcesses = null;
 					this.IsProcessing = false;
 					return;
 				}
-				this.currentProcess = value;
+				this.currentProcesses[i] = value;
 				this.IsProcessing = true;
 			}
 		}
 		/// <summary>
 		/// Creates a CPU
 		/// </summary>
-		public Cpu() {
-		}
+		public Cpu() => this.currentProcesses = new List<Process>();
 	}
 }

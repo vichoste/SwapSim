@@ -9,6 +9,7 @@ namespace SwapSim.Components {
 	/// Represents the computer
 	/// </summary>
 	public sealed class Computer {
+		#region Properties
 		/// <summary>
 		/// Holds the CPU
 		/// </summary>
@@ -32,17 +33,24 @@ namespace SwapSim.Components {
 		/// </summary>
 		private Memory memory;
 		/// <summary>
-		/// Holds the current running processes inside the memory
+		/// Holds the user running processes inside the memory
 		/// </summary>
-		public List<Process> CurrentRunningProcessesInMemory {
-			get => this.memory.CurrentRunningProcesses.ToList();
+		public List<Process> CurrentUserProcessesInMemory {
+			get => this.memory.UserProcesses.ToList();
+			private set { }
+		}
+		/// <summary>
+		/// Holds the system processes in memory
+		/// </summary>
+		public List<Process> CurrentSystemProcessesInMemory {
+			get => this.memory.SystemProcesses.ToList();
 			private set { }
 		}
 		/// <summary>
 		/// Holds the pending processes in memory
 		/// </summary>
-		public List<Process> PendingProcessesInMemory {
-			get => this.memory.PendingProcesses.ToList();
+		public List<Process> CurrentPendingProcessesInMemory {
+			get => this.memory.PendingUserProcesses.ToList();
 			private set { }
 		}
 		/// <summary>
@@ -63,10 +71,14 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Creates a computer
 		/// </summary>
+		#endregion
+		#region Constructor
 		public Computer() {
 			this.cpu = new Cpu();
 			this.memory = new Memory();
 		}
+		#endregion
+		#region Methods
 		/// <summary>
 		/// Resets the computer
 		/// </summary>
@@ -81,19 +93,41 @@ namespace SwapSim.Components {
 		/// <param name="isSystemPriority">Sets if it's a system process</param>
 		public void AddProcess(bool isSystemPriority) {
 			var usedSize = 0;
-			foreach (var proc in this.memory.CurrentRunningProcesses) {
+			foreach (var proc in this.memory.SystemProcesses) {
+				usedSize += proc.Size;
+			}
+			foreach (var proc in this.memory.UserProcesses) {
 				usedSize += proc.Size;
 			}
 			var newProcess = new Process(this.Id, isSystemPriority);
 			if (newProcess.Size + usedSize <= memory.Size) {
-				this.memory.CurrentRunningProcesses.Add(new Process(this.Id++, isSystemPriority));
+				if (isSystemPriority) {
+					this.memory.SystemProcesses.Enqueue(newProcess);
+				} else {
+					this.memory.UserProcesses.Enqueue(newProcess);
+				}
+				this.Id++;
 			}
 		}
 		/// <summary>
 		/// Runs the current iteration in the computer
 		/// </summary>
 		public void Run() {
-			if (this.CurrentProcessInCpu is Process currentProcessInCpu) {
+			if (this.CurrentProcessInCpu == null) {
+				if (this.memory.SystemProcesses.Count > 0 && this.memory.SystemProcesses.Dequeue() is Process systemProcess) {
+					this.CurrentProcessInCpu = systemProcess;
+				} else if (this.memory.PendingUserProcesses.Count > 0 && this.memory.PendingUserProcesses.Dequeue() is Process pendingProcess) {
+					this.CurrentProcessInCpu = pendingProcess;
+				} else if (this.memory.UserProcesses.Count > 0 && this.memory.UserProcesses.Dequeue() is Process userProcess) {
+					this.CurrentProcessInCpu = userProcess;
+				}
+			} else if (this.CurrentProcessInCpu is Process currentProcessInCpu) {
+				if (this.memory.SystemProcesses.Count > 0 && this.memory.SystemProcesses.Peek() is Process systemProcess) {
+					if (this.CurrentProcessInCpu.Priority.Equals("Usuario")) {
+						this.memory.PendingUserProcesses.Enqueue(this.cpu.CurrentProcess);
+						this.cpu.CurrentProcess = systemProcess;
+					}
+				}
 				if (currentProcessInCpu.Lifespan > 0) {
 					currentProcessInCpu.Iterate();
 				} else {
@@ -101,11 +135,7 @@ namespace SwapSim.Components {
 				}
 				this.Iteration++;
 			}
-			if (this.memory.CurrentRunningProcesses.Count != 0 && this.memory.CurrentRunningProcesses[0] is Process currentProcessInMemory) {
-				this.CurrentProcessInCpu = currentProcessInMemory;
-				this.memory.CurrentRunningProcesses.RemoveAt(0);
-				this.Iteration++;
-			}
 		}
+		#endregion
 	}
 }

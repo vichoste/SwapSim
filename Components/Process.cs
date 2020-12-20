@@ -43,7 +43,7 @@ namespace SwapSim.Components {
 		/// Life span of the process. Totally random
 		/// </summary>
 		public int Lifespan {
-			get; set;
+			get; private set;
 		}
 		/// <summary>
 		/// Creates a process
@@ -57,5 +57,9 @@ namespace SwapSim.Components {
 			this.priority = isSystemPriority ? PriorityEnum.System : PriorityEnum.User;
 			this.Lifespan = random.Next(1, 10);
 		}
+		/// <summary>
+		/// Decrements the lifespan of the process by one unit
+		/// </summary>
+		public void Iterate() => this.Lifespan--;
 	}
 }

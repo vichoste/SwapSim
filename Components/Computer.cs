@@ -17,15 +17,15 @@ namespace SwapSim.Components {
 		/// Gets the current process inside the CPU
 		/// </summary>
 		public Process CurrentProcessInCpu {
-			get => this.cpu.CurrentProcesses.Count != 0 ? this.cpu[0] : null;
-			private set { }
+			get => this.cpu.CurrentProcess;
+			private set => this.cpu.CurrentProcess = value;
 		}
 		/// <summary>
 		/// Tells if there's a process processing inside the CPU
 		/// </summary>
 		public bool IsProcessingInCpu {
 			get => this.cpu.IsProcessing;
-			private set { }
+			private set => this.cpu.IsProcessing = value;
 		}
 		/// <summary>
 		/// Holds the memory
@@ -93,56 +93,19 @@ namespace SwapSim.Components {
 		/// Runs the current iteration in the computer
 		/// </summary>
 		public void Run() {
-			var systemProcessAmount = 0;
-			if (this.IsProcessingInCpu) {
-				var newLifespan = this.cpu[0].Lifespan - 1;
-				if (newLifespan > 0) {
-					this.cpu[0].Lifespan = newLifespan;
-				} else {
-					this.cpu[0] = null;
+			if (this.CurrentProcessInCpu is Process currentProcess && currentProcess.Lifespan > 0) {
+				currentProcess.Iterate();
+				this.Iteration++;
+				if (currentProcess.Lifespan == 0) {
+					this.CurrentProcessInCpu = null;
 				}
+				return;
 			}
-			if (this.CurrentRunningProcessesInMemory.Count > 0) {
-				foreach (var process in this.CurrentRunningProcessesInMemory) {
-					if (process.Priority.Equals("Sistema")) {
-						systemProcessAmount++;
-					}
-				}
-				if (systemProcessAmount > 0) {
-					var index = 0;
-					foreach (var process in this.CurrentRunningProcessesInMemory) {
-						if (process.Priority.Equals("Sistema")) {
-							if (this.IsProcessingInCpu && this.cpu[index].Priority.Equals("Usuario")) {
-								this.memory.PendingProcesses.Add(this.cpu[0]);
-								this.cpu.CurrentProcesses.RemoveAt(0);
-								if (this.cpu.CurrentProcesses.Count == 0) {
-									this.cpu.CurrentProcesses.Add(process);
-									this.cpu.CurrentProcesses.RemoveAt(index);
-									break;
-								}
-							}
-							this.cpu.CurrentProcesses.Add(process);
-							this.cpu.CurrentProcesses.RemoveAt(index);
-							break;
-						}
-						index++;
-					}
-				} else {
-					if (!this.IsProcessingInCpu) {
-						if (this.PendingProcessesInMemory.Count > 0) {
-							this.cpu.CurrentProcesses.Add(this.PendingProcessesInMemory[0]);
-							this.memory.PendingProcesses.RemoveAt(0);
-						} else {
-							this.cpu.CurrentProcesses.Add(this.CurrentRunningProcessesInMemory[0]);
-							this.cpu.CurrentProcesses.RemoveAt(0);
-						}
-					}
-				}
-			} else if (!this.IsProcessingInCpu && this.PendingProcessesInMemory.Count > 0) {
-				this.cpu.CurrentProcesses.Add(this.PendingProcessesInMemory[0]);
-				this.memory.PendingProcesses.RemoveAt(0);
+			if (this.memory.CurrentRunningProcesses.Count != 0 && this.memory.CurrentRunningProcesses[0] is Process lastProcess) {
+				this.CurrentProcessInCpu = lastProcess;
+				this.memory.CurrentRunningProcesses.RemoveAt(0);
+				this.Iteration++;
 			}
-			this.Iteration++;
 		}
 	}
 }

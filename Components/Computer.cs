@@ -93,16 +93,16 @@ namespace SwapSim.Components {
 		/// Runs the current iteration in the computer
 		/// </summary>
 		public void Run() {
-			if (this.CurrentProcessInCpu is Process currentProcess && currentProcess.Lifespan > 0) {
-				currentProcess.Iterate();
-				this.Iteration++;
-				if (currentProcess.Lifespan == 0) {
+			if (this.CurrentProcessInCpu is Process currentProcessInCpu) {
+				if (currentProcessInCpu.Lifespan > 0) {
+					currentProcessInCpu.Iterate();
+				} else {
 					this.CurrentProcessInCpu = null;
 				}
-				return;
+				this.Iteration++;
 			}
-			if (this.memory.CurrentRunningProcesses.Count != 0 && this.memory.CurrentRunningProcesses[0] is Process lastProcess) {
-				this.CurrentProcessInCpu = lastProcess;
+			if (this.memory.CurrentRunningProcesses.Count != 0 && this.memory.CurrentRunningProcesses[0] is Process currentProcessInMemory) {
+				this.CurrentProcessInCpu = currentProcessInMemory;
 				this.memory.CurrentRunningProcesses.RemoveAt(0);
 				this.Iteration++;
 			}

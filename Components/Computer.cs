@@ -125,7 +125,7 @@ namespace SwapSim.Components {
 				if (this.memory.SystemProcesses.Count > 0 && this.memory.SystemProcesses.Peek() is Process systemProcess) {
 					if (this.CurrentProcessInCpu.Priority.Equals("Usuario")) {
 						this.memory.PendingUserProcesses.Enqueue(this.cpu.CurrentProcess);
-						this.cpu.CurrentProcess = systemProcess;
+						this.cpu.CurrentProcess = this.memory.SystemProcesses.Dequeue();
 					}
 				}
 				if (currentProcessInCpu.Lifespan > 0) {

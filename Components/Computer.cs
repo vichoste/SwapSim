@@ -22,13 +22,6 @@ namespace SwapSim.Components {
 			private set => this.cpu.CurrentProcess = value;
 		}
 		/// <summary>
-		/// Tells if there's a process processing inside the CPU
-		/// </summary>
-		public bool IsProcessingInCpu {
-			get => this.cpu.IsProcessing;
-			private set => this.cpu.IsProcessing = value;
-		}
-		/// <summary>
 		/// Holds the memory
 		/// </summary>
 		private Memory memory;

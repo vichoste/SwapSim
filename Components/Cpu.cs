@@ -10,10 +10,6 @@ namespace SwapSim.Components {
 	/// </summary>
 	public sealed class Cpu {
 		/// <summary>
-		/// Tells if the CPU is currently processing a process
-		/// </summary>
-		public bool IsProcessing { get; set; }
-		/// <summary>
 		/// The current processes of the CPU
 		/// </summary>
 		public Process CurrentProcess;

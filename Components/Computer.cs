@@ -113,13 +113,22 @@ namespace SwapSim.Components {
 				usedSize += proc.Size;
 			}
 			var newProcess = new Process(this.Id, isSystemPriority);
-			if (newProcess.Size + usedSize <= memory.Size) {
+			if (newProcess.Size + usedSize <= this.memory.Size) {
 				if (isSystemPriority) {
 					this.memory.SystemProcesses.Enqueue(newProcess);
 				} else {
 					this.memory.UserProcesses.Enqueue(newProcess);
 				}
 				this.Id++;
+			} else {
+				var usedSizeInDisk = 0;
+				foreach (var proc in this.disk.Processes) {
+					usedSizeInDisk += proc.Size;
+				}
+				if (newProcess.Size + usedSizeInDisk <= this.disk.Size) {
+					this.disk.Processes.Enqueue(newProcess);
+					this.Id++;
+				}
 			}
 		}
 		/// <summary>

@@ -26,13 +26,13 @@
 		<materialDesign:Card Margin="16,16,8,16" MinWidth="300" Grid.Column="0">
 			<Grid VerticalAlignment="Stretch">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="1.5*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="3*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1.5*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="5*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
 				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">CPU</TextBlock>
 				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Proceso actual</TextBlock>
@@ -62,6 +62,7 @@
 				<DataGrid Grid.Row="6" Margin="16,0,16,16" ItemsSource="{Binding CurrentPendingProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
 			</Grid>
@@ -69,13 +70,13 @@
 		<materialDesign:Card Margin="8,16,16,16" Grid.Column="2">
 			<Grid VerticalAlignment="Stretch">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="1.5*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="5*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="5*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
 				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
 				<Grid Grid.Row="1" Margin="16,0,16,16" VerticalAlignment="Top">
@@ -87,7 +88,7 @@
 					<TextBlock Margin="4" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding SizeInMemory}" TextAlignment="Right"></TextBlock>
 				</Grid>
 				<TextBlock Grid.Row="2" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de usuario</TextBlock>
-				<DataGrid Grid.Row="3" Margin="16,0,16,16" ItemsSource="{Binding CurrentUserProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+				<DataGrid Grid.Row="3" Margin="16,0,16,16" ItemsSource="{Binding CurrentUserProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -96,7 +97,7 @@
 				</DataGrid>
 				<Separator Grid.Row="4" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,0"></Separator>
 				<TextBlock Grid.Row="5" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de sistema</TextBlock>
-				<DataGrid Grid.Row="6" Margin="16,0,16,16" ItemsSource="{Binding CurrentSystemProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+				<DataGrid Grid.Row="6" Margin="16,0,16,16" ItemsSource="{Binding CurrentSystemProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -106,24 +107,29 @@
 			</Grid>
 		</materialDesign:Card>
 		<materialDesign:Card Margin="8,16,8,16" Grid.Column="1">
-			<Grid VerticalAlignment="Top">
+			<Grid VerticalAlignment="Stretch">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="1.5*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="5*"></RowDefinition>
-					<RowDefinition Height="2*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
-					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
 				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Panel de Control</TextBlock>
 				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Creación de procesos</TextBlock>
 				<Grid Grid.Row="2" Margin="16,0,16,16">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="1*"></RowDefinition>
-						<RowDefinition Height="1*"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1.5*"></ColumnDefinition>
@@ -147,6 +153,22 @@
 				</Grid>
 				<Button TabIndex="2" Grid.Row="7" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="RunButton_Click">Ejecutar</Button>
 				<Button TabIndex="3" Grid.Row="8" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignRaisedButton}" Click="ResetButton_Click">Reiniciar</Button>
+				<Separator Grid.Row="9" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,16"></Separator>
+				<TextBlock Grid.Row="10" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Disco</TextBlock>
+				<Grid Grid.Row="11" Margin="16,0,16,16" VerticalAlignment="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock Margin="4" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]:</TextBlock>
+					<TextBlock Margin="4" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding SizeInDisk}" TextAlignment="Right"></TextBlock>
+				</Grid>
+				<DataGrid Grid.Row="12" Margin="16,0,16,16" ItemsSource="{Binding CurrentProcessesInDisk}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
+					</DataGrid.Columns>
+				</DataGrid>
 			</Grid>
 		</materialDesign:Card>
 	</Grid>

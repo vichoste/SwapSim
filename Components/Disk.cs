@@ -22,6 +22,8 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Creates a disk
 		/// </summary>
-		public Disk() {}
+		public Disk() {
+			this.Processes = new Queue<Process>();
+		}
 	}
 }

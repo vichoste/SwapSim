@@ -61,6 +61,24 @@ namespace SwapSim.Components {
 		/// Current ID process
 		/// </summary>
 		public int Id { get; private set; }
+		/// <summary>
+		/// Holds the disk
+		/// </summary>
+		private Disk disk;
+		/// <summary>
+		/// Holds the current processes in disk
+		/// </summary>
+		public List<Process> CurrentProcessesInDisk {
+			get => this.disk.Processes.ToList();
+			private set { }
+		}
+		/// <summary>
+		/// Tells the disk size
+		/// </summary>
+		public int SizeInDisk {
+			get => this.disk.Size;
+			private set { }
+		}
 		#endregion
 		#region Constructor
 		/// <summary>
@@ -69,6 +87,7 @@ namespace SwapSim.Components {
 		public Computer() {
 			this.cpu = new Cpu();
 			this.memory = new Memory();
+			this.disk = new Disk();
 		}
 		#endregion
 		#region Methods
@@ -78,6 +97,7 @@ namespace SwapSim.Components {
 		public void Reset() {
 			this.cpu = new Cpu();
 			this.memory = new Memory();
+			this.disk = new Disk();
 			this.Iteration = this.Id = 0;
 		}
 		/// <summary>

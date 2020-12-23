@@ -62,9 +62,6 @@
 				<DataGrid Grid.Row="6" Margin="16,0,16,16" ItemsSource="{Binding CurrentPendingProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Prioridad" Binding="{Binding Priority}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
 			</Grid>
@@ -94,7 +91,6 @@
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Prioridad" Binding="{Binding Priority}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
@@ -104,7 +100,6 @@
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Prioridad" Binding="{Binding Priority}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SwapSim.Components {
+﻿namespace SwapSim.Components {
 	/// <summary>
 	/// Represents the CPU
 	/// </summary>

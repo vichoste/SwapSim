@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwapSim.Components {
 	/// <summary>
@@ -105,13 +102,7 @@ namespace SwapSim.Components {
 		/// </summary>
 		/// <param name="isSystemPriority">Sets if it's a system process</param>
 		public void AddProcess(bool isSystemPriority) {
-			var usedSize = 0;
-			foreach (var proc in this.memory.SystemProcesses) {
-				usedSize += proc.Size;
-			}
-			foreach (var proc in this.memory.UserProcesses) {
-				usedSize += proc.Size;
-			}
+			var usedSize = this.CalculateUsedSizeInMemory();
 			var newProcess = new Process(this.Id, isSystemPriority);
 			if (newProcess.Size + usedSize <= this.memory.Size) {
 				if (isSystemPriority) {
@@ -157,6 +148,32 @@ namespace SwapSim.Components {
 				}
 				this.Iteration++;
 			}
+			if (this.disk.Processes.Count > 0 && this.disk.Processes.Peek() is Process processInDisk) {
+				var usedSize = this.CalculateUsedSizeInMemory();
+				if (processInDisk.Size + usedSize <= this.memory.Size) {
+					var processToMove = this.disk.Processes.Dequeue();
+					if (processToMove.Priority.Equals("Usuario")) {
+						this.memory.UserProcesses.Enqueue(processToMove);
+					} else {
+						this.memory.SystemProcesses.Enqueue(processToMove);
+					}
+					this.Iteration++;
+				}
+			}
+		}
+		/// <summary>
+		/// Calculates how much memory is currently being used
+		/// </summary>
+		/// <returns></returns>
+		private int CalculateUsedSizeInMemory() {
+			var usedSize = 0;
+			foreach (var proc in this.memory.SystemProcesses) {
+				usedSize += proc.Size;
+			}
+			foreach (var proc in this.memory.UserProcesses) {
+				usedSize += proc.Size;
+			}
+			return usedSize;
 		}
 		#endregion
 	}

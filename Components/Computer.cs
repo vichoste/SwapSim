@@ -61,11 +61,11 @@ namespace SwapSim.Components {
 		/// Current ID process
 		/// </summary>
 		public int Id { get; private set; }
+		#endregion
+		#region Constructor
 		/// <summary>
 		/// Creates a computer
 		/// </summary>
-		#endregion
-		#region Constructor
 		public Computer() {
 			this.cpu = new Cpu();
 			this.memory = new Memory();

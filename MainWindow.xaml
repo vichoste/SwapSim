@@ -19,9 +19,9 @@
 	</Window.DataContext>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1.2*"></ColumnDefinition>
 			<ColumnDefinition Width="1*"></ColumnDefinition>
-			<ColumnDefinition Width="1.2*"></ColumnDefinition>
+			<ColumnDefinition Width="1*"></ColumnDefinition>
+			<ColumnDefinition Width="1*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 		<materialDesign:Card Margin="16,16,8,16" MinWidth="300" Grid.Column="0">
 			<Grid VerticalAlignment="Stretch">
@@ -74,14 +74,23 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="1.5*"></RowDefinition>
 					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
 					<RowDefinition Height="5*"></RowDefinition>
 					<RowDefinition Height="1*"></RowDefinition>
 					<RowDefinition Height="1*"></RowDefinition>
 					<RowDefinition Height="5*"></RowDefinition>
 				</Grid.RowDefinitions>
 				<TextBlock Grid.Row="0" Margin="16" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" TextAlignment="Center">Memoria</TextBlock>
-				<TextBlock Grid.Row="1" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de usuario</TextBlock>
-				<DataGrid Grid.Row="2" Margin="16,0,16,16" ItemsSource="{Binding CurrentUserProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+				<Grid Grid.Row="1" Margin="16,0,16,16" VerticalAlignment="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock Margin="4" Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}">Tamaño [KB]:</TextBlock>
+					<TextBlock Margin="4" Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="{Binding SizeInMemory}" TextAlignment="Right"></TextBlock>
+				</Grid>
+				<TextBlock Grid.Row="2" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de usuario</TextBlock>
+				<DataGrid Grid.Row="3" Margin="16,0,16,16" ItemsSource="{Binding CurrentUserProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>
@@ -89,9 +98,9 @@
 						<DataGridTextColumn Header="Duración [iteraciones]" Binding="{Binding Lifespan}"></DataGridTextColumn>
 					</DataGrid.Columns>
 				</DataGrid>
-				<Separator Grid.Row="3" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,0"></Separator>
-				<TextBlock Grid.Row="4" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de sistema</TextBlock>
-				<DataGrid Grid.Row="5" Margin="16,0,16,16" ItemsSource="{Binding CurrentSystemProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+				<Separator Grid.Row="4" Style="{DynamicResource MaterialDesignSeparator}" Margin="16,0,16,0"></Separator>
+				<TextBlock Grid.Row="5" Margin="16,0,16,16" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" TextAlignment="Center">Procesos de sistema</TextBlock>
+				<DataGrid Grid.Row="6" Margin="16,0,16,16" ItemsSource="{Binding CurrentSystemProcessesInMemory}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
 						<DataGridTextColumn Header="Tamaño [KB]" Binding="{Binding Size}"></DataGridTextColumn>

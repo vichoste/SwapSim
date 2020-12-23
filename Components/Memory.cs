@@ -30,7 +30,7 @@ namespace SwapSim.Components {
 		/// <summary>
 		/// Memory size. It will always have fixed size
 		/// </summary>
-		public readonly int Size = 1024;
+		public readonly int Size = 2048;
 		/// <summary>
 		/// Creates a memory
 		/// </summary>
